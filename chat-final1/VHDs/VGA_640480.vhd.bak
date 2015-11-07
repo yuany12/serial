@@ -1,0 +1,224 @@
+library	ieee;
+use		ieee.std_logic_1164.all;
+use		ieee.std_logic_unsigned.all;
+use		ieee.std_logic_arith.all;
+use     ieee.numeric_std.all;
+------------------------------------------
+use work.GlobalDefines.all;
+
+entity vga640480 is
+	 port(
+			address		:		    out	STD_LOGIC_VECTOR(13 DOWNTO 0);
+			reset       :         in  STD_LOGIC;
+			clk25       :		  	 out STD_LOGIC; 
+			clk_0       :         in  STD_LOGIC; --100M????
+			hs,vs       :         out STD_LOGIC; --?????????
+			r, g, b     :         out std_logic_vector(2 downto 0);
+			rgb         :         in  std_logic_vector(2 downto 0);
+			input_clk   :         in  std_logic;
+			--pic       :         inout  std_logic_vector(2 downto 0);  --choose flag size(000=>16*32 001=>128*128)
+			vga_output  :         in  StandardWindow;
+			disp_code   :         out std_logic_vector(7 downto 0)
+			--rgb_bg    :         in  std_logic_vector(8 downto 0);
+			--bg_line   :         out std_logic_vector(4 downto 0)
+	  );
+end vga640480;
+
+architecture behavior of vga640480 is
+	--constant 			
+	constant input_width   : integer := 640;
+	constant input_start_x : integer := 0; 			--determined by the pic
+	constant input_start_y : integer := 320;			--
+	constant input_height  : integer := 160;
+	constant output_height : integer := 320;
+	signal   char_count    : integer := 0;
+	signal   disp_count    : integer := 0;
+	--signal   bg_line_int   : integer := 0;
+	constant rgb_bg        : std_logic_vector(8 downto 0) := "000000000";		---
+	
+	signal hs1,vs1    : std_logic;				
+	signal vector_x : integer;		--X??
+	signal vector_y : integer;		--Y??
+	signal clk50	:	 std_logic;
+	signal clk : std_logic;
+	signal address_tmp : integer;
+begin
+	clk25 <= clk;
+	address <= conv_std_logic_vector(address_tmp,14);	--m: integer to logic_vector;
+ -----------------------------------------------------------------------
+  process(clk_0)	--?100M???????
+    begin
+        if clk_0'event and clk_0='1' then 
+             clk50 <= not clk50;
+        end if;
+ 	end process;
+ 	
+  process(clk50)	--?50M???????
+    begin
+        if clk50'event and clk50='1' then 
+             clk <= not clk;
+        end if;
+ 	end process;
+ -----------------------------------------------------------------------
+	 process(clk,reset)	--????????????
+	 begin
+	  	if reset='0' then
+	   		vector_x <= 0;
+	  	elsif clk'event and clk='1' then
+	   		if vector_x=799 then
+	    		vector_x <= 0;
+	   		else
+	    		vector_x <= vector_x + 1;
+	   		end if;
+	  	end if;
+	 end process;
+
+  -----------------------------------------------------------------------
+	 process(clk,reset)	--???????????
+	 begin
+	  	if reset='0' then
+	   		vector_y <= 0;
+	  	elsif clk'event and clk='1' then
+	   		if vector_x=799 then
+	    		if vector_y=524 then
+	     			vector_y <= 0;
+	    		else
+	     			vector_y <= vector_y + 1;
+	    		end if;
+	   		end if;
+	  	end if;
+	 end process;
+ 
+  -----------------------------------------------------------------------
+	 process(clk,reset) --????????????96???16?
+	 begin
+		  if reset='0' then
+		   hs1 <= '1';
+		  elsif clk'event and clk='1' then
+		   	if vector_x>=656 and vector_x<752 then
+		    	hs1 <= '0';
+		   	else
+		    	hs1 <= '1';
+		   	end if;
+		  end if;
+	 end process;
+ 
+ -----------------------------------------------------------------------
+	 process(clk,reset) --????????????2???10?
+	 begin
+	  	if reset='0' then
+	   		vs1 <= '1';
+	  	elsif clk'event and clk='1' then
+	   		if vector_y>=490 and vector_y<492 then
+	    		vs1 <= '0';
+	   		else
+	    		vs1 <= '1';
+	   		end if;
+	  	end if;
+	 end process;
+ -----------------------------------------------------------------------
+	 process(clk,reset) --???????
+	 begin
+	  	if reset='0' then
+	   		hs <= '0';
+	  	elsif clk'event and clk='1' then
+	   		hs <=  hs1;
+	  	end if;
+	 end process;
+
+ -----------------------------------------------------------------------
+	 process(clk,reset) --???????
+	 begin
+	  	if reset='0' then
+	   		vs <= '0';
+	  	elsif clk'event and clk='1' then
+	   		vs <=  vs1;
+	  	end if;
+	 end process;
+	 
+------------------------------------------------------------------------
+--	process(input_clk, reset)
+--	begin
+--		if reset = '0' then
+--			char_count <= 0;
+--		elsif(input_clk'event and input_clk = '1') then
+--			char_count <= char_count + 1;
+--		end if;
+--	end process;
+	process(vga_output, vector_x, vector_y)
+	begin
+--		if(vector_x = 0) then
+--			char_count <= 0;
+--		end if;
+		for i in 0 to 140 loop									----length limit 140
+			--
+			char_count <= i;
+			exit when vga_output(0).txt(i) = CHAR_NULL;
+		end loop;
+	end process;
+ -----------------------------------------------------------------------	
+	process(reset , clk, vector_x, vector_y, rgb) -- XY LAYOUT
+	begin  
+		if reset= '0' then 
+			address_tmp <= 0;
+		elsif clk'event and clk='1' then
+		 			--if vector_x >= input_start_x and vector_x < input_start_x + 16 and vector_y >= input_start_y and vector_y < input_start_y + 32 then
+		 			if vector_x >= input_start_x  and vector_x < input_start_x + (char_count MOD (input_width/16) )* 16
+					  and vector_y >= input_start_y  and vector_y < input_start_y + (char_count*16/input_width + 1) * 32 then
+						--integer div????????????!!!!!!!!!!!!!------------------------------------?//////////////////////////
+						address_tmp <= vector_x MOD 16 + vector_y MOD 32 * 16;
+						--pic <= "000";
+						disp_count <= (vector_x - input_start_x) / 16 + (vector_y - input_start_y) / 32 * (input_width/16);
+						disp_code  <= vga_output(0).txt(disp_count);
+							r(0) <= rgb(2);
+							r(1) <= rgb(2);
+							r(2) <= rgb(2);
+							g(0) <= rgb(1);
+							g(1) <= rgb(1);
+							g(2) <= rgb(1);
+							b(0) <= rgb(0);
+							b(1) <= rgb(0);
+							b(2) <= rgb(0);
+					--line
+					elsif vector_y MOD 43 = 0 or vector_y MOD 43 = 1 then
+						--color pink
+						r <= "011";
+						g <= "011";
+						b <= "011";
+					
+					elsif (vector_x MOD 43) = 0 or (vector_x MOD 43) = 1 then
+						--color green to black
+						r <= "111";
+						g <= "011";
+						b <= "001";
+					
+					--background
+					elsif vector_x >= 0 and vector_x < 640 and vector_y >= 0 and vector_y < 480 then
+							--if(pic = "000") then
+								--address_tmp <= vector_x MOD 16 + vector_y MOD 32 * 16;
+							--else
+								address_tmp <= vector_x MOD 128 + vector_y MOD 128 * 128;
+								--bg_line_int <= vector_y / 24;
+								--bg_line <= conv_std_logic_vector(bg_line_int, 5);
+								--pic <= "001";
+							--end if;
+							--macth output (low);
+							r(0) <= rgb_bg(6);
+							r(1) <= rgb_bg(7);
+							r(2) <= rgb_bg(8);
+							g(0) <= rgb_bg(3);
+							g(1) <= rgb_bg(4);
+							g(2) <= rgb_bg(5);
+							b(0) <= rgb_bg(0);
+							b(1) <= rgb_bg(1);
+							b(2) <= rgb_bg(2);
+					end if;
+		end if;		 
+	end process;	
+
+							
+	-----------------------------------------------------------------------
+	
+
+end behavior;
+

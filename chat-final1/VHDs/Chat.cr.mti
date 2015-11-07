@@ -1,0 +1,108 @@
+F:/university/22/Chat/VHDs/SerialToString.vhd {1 {vcom -work work -2002 -explicit -vopt F:/university/22/Chat/VHDs/SerialToString.vhd
+Model Technology ModelSim SE vcom 10.1a Compiler 2012.02 Feb 22 2012
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Loading package GlobalDefines
+-- Compiling entity SerialToString
+-- Compiling architecture bhv of SerialToString
+
+} {} {}} F:/university/22/Chat/VHDs/Controller-Jun6-19.vhd {1 {vcom -work work -2002 -explicit -vopt F:/university/22/Chat/VHDs/Controller-Jun6-19.vhd
+Model Technology ModelSim SE vcom 10.1a Compiler 2012.02 Feb 22 2012
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Loading package GlobalDefines
+-- Compiling entity Controller
+-- Compiling architecture structural of Controller
+
+} {} {}} F:/university/22/Chat/VHDs/vga_rom.vhd {1 {vcom -work work -2002 -explicit -vopt F:/university/22/Chat/VHDs/vga_rom.vhd
+Model Technology ModelSim SE vcom 10.1a Compiler 2012.02 Feb 22 2012
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Loading package GlobalDefines
+-- Compiling entity vga_rom
+-- Compiling architecture vga_rom of vga_rom
+
+} {} {}} F:/university/22/Chat/VHDs/digital_rom.vhd {0 {vcom -work work -2002 -explicit -vopt F:/university/22/Chat/VHDs/digital_rom.vhd
+Model Technology ModelSim SE vcom 10.1a Compiler 2012.02 Feb 22 2012
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+** Error: F:/university/22/Chat/VHDs/digital_rom.vhd(39): Library altera not found.
+** Error: F:/university/22/Chat/VHDs/digital_rom.vhd(40): (vcom-1136) Unknown identifier "altera".
+
+** Error: F:/university/22/Chat/VHDs/digital_rom.vhd(42): VHDL Compiler exiting
+
+} {6.0 8.0 9.0 10.0} {}} F:/university/22/Chat/VHDs/bug.vhd {1 {vcom -work work -2002 -explicit -vopt F:/university/22/Chat/VHDs/bug.vhd
+Model Technology ModelSim SE vcom 10.1a Compiler 2012.02 Feb 22 2012
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Loading package NUMERIC_STD
+-- Compiling entity bug
+-- Compiling architecture behavior of bug
+
+} {} {}} F:/university/22/Chat/VHDs/seg7.vhd {1 {vcom -work work -2002 -explicit -vopt F:/university/22/Chat/VHDs/seg7.vhd
+Model Technology ModelSim SE vcom 10.1a Compiler 2012.02 Feb 22 2012
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling entity seg7
+-- Compiling architecture behave of seg7
+
+} {} {}} F:/university/22/Chat/VHDs/GlobalDefines.vhd {1 {vcom -work work -2002 -explicit -vopt F:/university/22/Chat/VHDs/GlobalDefines.vhd
+Model Technology ModelSim SE vcom 10.1a Compiler 2012.02 Feb 22 2012
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling package GlobalDefines
+-- Compiling package body GlobalDefines
+-- Loading package GlobalDefines
+
+} {} {}} F:/university/22/Chat/VHDs/Keyboard.vhd {1 {vcom -work work -2002 -explicit -vopt F:/university/22/Chat/VHDs/Keyboard.vhd
+Model Technology ModelSim SE vcom 10.1a Compiler 2012.02 Feb 22 2012
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling entity Keyboard
+-- Compiling architecture rtl of Keyboard
+
+} {} {}} F:/university/22/Chat/VHDs/VGA_640480.vhd {1 {vcom -work work -2002 -explicit -vopt F:/university/22/Chat/VHDs/VGA_640480.vhd
+Model Technology ModelSim SE vcom 10.1a Compiler 2012.02 Feb 22 2012
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Loading package NUMERIC_STD
+-- Loading package GlobalDefines
+-- Compiling entity vga640480
+-- Compiling architecture behavior of vga640480
+
+} {} {}} F:/university/22/Chat/VHDs/serial.vhd {1 {vcom -work work -2002 -explicit -vopt F:/university/22/Chat/VHDs/serial.vhd
+Model Technology ModelSim SE vcom 10.1a Compiler 2012.02 Feb 22 2012
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling entity serial
+-- Compiling architecture Behavior of serial
+
+} {} {}}

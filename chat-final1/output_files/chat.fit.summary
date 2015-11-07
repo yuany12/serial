@@ -1,0 +1,16 @@
+Fitter Status : Successful - Tue Jun 10 02:45:57 2014
+Quartus II 64-Bit Version : 13.0.1 Build 232 06/12/2013 SP 1 SJ Full Version
+Revision Name : chat
+Top-level Entity Name : chat
+Family : Cyclone II
+Device : EP2C20Q240C8
+Timing Models : Final
+Total logic elements : 11,820 / 18,752 ( 63 % )
+    Total combinational functions : 7,398 / 18,752 ( 39 % )
+    Dedicated logic registers : 6,603 / 18,752 ( 35 % )
+Total registers : 6603
+Total pins : 81 / 142 ( 57 % )
+Total virtual pins : 0
+Total memory bits : 178,176 / 239,616 ( 74 % )
+Embedded Multiplier 9-bit elements : 16 / 52 ( 31 % )
+Total PLLs : 1 / 4 ( 25 % )

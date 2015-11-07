@@ -1,0 +1,104 @@
+-------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_unsigned.all;
+use work.GlobalDefines.all;
+-------------------------------------------------------------------------------------
+
+entity SerialToString is 
+	port (
+		reset	:	in std_logic;
+		clk		:	in std_logic;
+		
+		rd	:	in std_logic; -- 下边沿表示要变了！！
+		dataR	:	in std_logic_vector(7 downto 0);	
+		s_toRec	:	out MyString_140d;
+		rdo		: 	out std_logic;
+		
+		wr		:	in std_logic;	--下边沿表示要变了！
+		dataT	:	out std_logic_vector(7 downto 0);	
+		s_toSend:	in MyString_140d;
+		wro		: 	out std_logic		
+	);
+end entity;
+
+architecture bhv of SerialToString is
+
+type STATE_TYPE is (s_init, s_idle, s_r0, s_r1, s_r2, s_sb0, s_s0, s_s1, s_s2);
+signal state : STATE_TYPE := s_init;
+
+signal cnt_r : integer := 0;
+signal cnt_s : integer := 0;
+
+signal dataBufferIn : std_logic_vector(7 downto 0);
+
+signal toRecBuffer : MyString_140d;
+
+begin
+  
+
+	process (clk, reset)
+	begin
+		if reset = '0' then
+			state <= s_init;
+		elsif clk'event and clk = '1' then
+			case state is 
+				when s_init =>
+					state <= s_idle;
+				when s_idle =>
+					rdo <= '1';
+					wro <= '1';
+					if rd = '0' then
+						dataBufferIn <= dataR;
+						cnt_r <= 0;
+						state <= s_r0;
+					elsif wr = '1' then
+						cnt_s <= 0;
+						state <= s_sb0;
+					else 
+						state <= s_idle;
+					end if;
+					
+				when s_r0 =>
+					toRecBuffer(cnt_r) <= dataBufferIn;
+					toRecBuffer(cnt_r+1) <= CHAR_NULL;
+					state <= s_r1;
+				when s_r1 =>
+					if rd = '0' then 
+						dataBufferIn <= dataR;
+						cnt_r <= cnt_r + 1;
+						state <= s_r0;
+					else
+						s_toRec <= toRecBuffer;
+						state <= s_r2;
+					end if;
+				when s_r2 =>
+					rdo <= '0';
+					state <= s_idle;
+				
+				when s_sb0=>
+					if wr = '1' then
+						state <= s_sb0;
+					else 
+						state <= s_s0;
+					end if;
+				when s_s0 =>
+					dataT <= s_toSend(cnt_s);
+					state <= s_s1;
+				when s_s1 =>
+					wro <= '0';
+					if cnt_s+1 <= 140 and not equal(s_toSend(cnt_s+1),CHAR_NULL) then
+						cnt_s <= cnt_s + 1;
+						state <= s_s2;
+					else
+						-- wro <= '1';
+						state <= s_idle;
+					end if;
+				when s_s2 =>
+					wro <= '1';
+					state <= s_s0;
+			end case;
+		end if;
+	end process;
+end;

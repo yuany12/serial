@@ -1,0 +1,497 @@
+# -------------------------------------------------------------------------- #
+#
+# Copyright (C) 1991-2013 Altera Corporation
+# Your use of Altera Corporation's design tools, logic functions 
+# and other software and tools, and its AMPP partner logic 
+# functions, and any output files from any of the foregoing 
+# (including device programming or simulation files), and any 
+# associated documentation or information are expressly subject 
+# to the terms and conditions of the Altera Program License 
+# Subscription Agreement, Altera MegaCore Function License 
+# Agreement, or other applicable license agreement, including, 
+# without limitation, that your use is for the sole purpose of 
+# programming logic devices manufactured by Altera and sold by 
+# Altera or its authorized distributors.  Please refer to the 
+# applicable agreement for further details.
+#
+# -------------------------------------------------------------------------- #
+#
+# Quartus II 64-Bit
+# Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Full Version
+# Date created = 17:05:27  June 05, 2014
+#
+# -------------------------------------------------------------------------- #
+#
+# Notes:
+#
+# 1) The default values for assignments are stored in the file:
+#		chat_assignment_defaults.qdf
+#    If this file doesn't exist, see file:
+#		assignment_defaults.qdf
+#
+# 2) Altera recommends that you do not modify this file. This
+#    file is updated automatically by the Quartus II software
+#    and any changes you make may be lost or overwritten.
+#
+# -------------------------------------------------------------------------- #
+
+
+set_global_assignment -name FAMILY "Cyclone II"
+set_global_assignment -name DEVICE EP2C20Q240C8
+set_global_assignment -name TOP_LEVEL_ENTITY chat
+set_global_assignment -name ORIGINAL_QUARTUS_VERSION "13.0 SP1"
+set_global_assignment -name PROJECT_CREATION_TIME_DATE "17:05:27  JUNE 05, 2014"
+set_global_assignment -name LAST_QUARTUS_VERSION "13.0 SP1"
+set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
+set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
+set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
+set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 1
+set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
+set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_global_assignment -name STRATIX_DEVICE_IO_STANDARD "3.3-V LVTTL"
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_location_assignment PIN_230 -to b[2]
+set_location_assignment PIN_228 -to b[1]
+set_location_assignment PIN_226 -to b[0]
+set_location_assignment PIN_210 -to Clock100M_FPGAE
+set_location_assignment PIN_233 -to g[2]
+set_location_assignment PIN_232 -to g[1]
+set_location_assignment PIN_231 -to g[0]
+set_location_assignment PIN_237 -to hs
+set_location_assignment PIN_195 -to PS2clk
+set_location_assignment PIN_194 -to PS2Data
+set_location_assignment PIN_236 -to r[2]
+set_location_assignment PIN_235 -to r[1]
+set_location_assignment PIN_234 -to r[0]
+set_location_assignment PIN_153 -to reset
+set_location_assignment PIN_238 -to vs
+set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (VHDL)"
+set_global_assignment -name EDA_OUTPUT_DATA_FORMAT VHDL -section_id eda_simulation
+set_location_assignment PIN_208 -to seg0[6]
+set_location_assignment PIN_203 -to seg0[5]
+set_location_assignment PIN_200 -to seg0[4]
+set_location_assignment PIN_68 -to seg0[3]
+set_location_assignment PIN_70 -to seg0[2]
+set_location_assignment PIN_72 -to seg0[1]
+set_location_assignment PIN_73 -to seg0[0]
+set_location_assignment PIN_78 -to seg1[6]
+set_location_assignment PIN_79 -to seg1[5]
+set_location_assignment PIN_80 -to seg1[4]
+set_location_assignment PIN_84 -to seg1[3]
+set_location_assignment PIN_86 -to seg1[2]
+set_location_assignment PIN_87 -to seg1[1]
+set_location_assignment PIN_88 -to seg1[0]
+set_location_assignment PIN_161 -to seg6[6]
+set_location_assignment PIN_162 -to seg6[5]
+set_location_assignment PIN_164 -to seg6[4]
+set_location_assignment PIN_165 -to seg6[3]
+set_location_assignment PIN_166 -to seg6[2]
+set_location_assignment PIN_167 -to seg6[1]
+set_location_assignment PIN_168 -to seg6[0]
+set_location_assignment PIN_170 -to seg07[6]
+set_location_assignment PIN_171 -to seg07[5]
+set_location_assignment PIN_173 -to seg07[4]
+set_location_assignment PIN_174 -to seg07[3]
+set_location_assignment PIN_175 -to seg07[2]
+set_location_assignment PIN_177 -to seg07[1]
+set_location_assignment PIN_178 -to seg07[0]
+set_location_assignment PIN_197 -to TXD_FPGAE
+set_location_assignment PIN_199 -to RXD_FPGAE
+set_location_assignment PIN_154 -to ClockK_FPGAE
+set_location_assignment PIN_116 -to seg3[6]
+set_location_assignment PIN_117 -to seg3[5]
+set_location_assignment PIN_118 -to seg3[4]
+set_location_assignment PIN_184 -to seg3[3]
+set_location_assignment PIN_128 -to seg3[2]
+set_location_assignment PIN_130 -to seg3[1]
+set_location_assignment PIN_131 -to seg3[0]
+set_location_assignment PIN_132 -to seg4[6]
+set_location_assignment PIN_134 -to seg4[5]
+set_location_assignment PIN_135 -to seg4[4]
+set_location_assignment PIN_136 -to seg4[3]
+set_location_assignment PIN_137 -to seg4[2]
+set_location_assignment PIN_139 -to seg4[1]
+set_location_assignment PIN_140 -to seg4[0]
+set_location_assignment PIN_141 -to seg5[6]
+set_location_assignment PIN_149 -to seg5[5]
+set_location_assignment PIN_150 -to seg5[4]
+set_location_assignment PIN_155 -to seg5[3]
+set_location_assignment PIN_156 -to seg5[2]
+set_location_assignment PIN_157 -to seg5[1]
+set_location_assignment PIN_159 -to seg5[0]
+set_location_assignment PIN_114 -to seg2[0]
+set_location_assignment PIN_113 -to seg2[1]
+set_location_assignment PIN_111 -to seg2[2]
+set_location_assignment PIN_110 -to seg2[3]
+set_location_assignment PIN_109 -to seg2[4]
+set_location_assignment PIN_106 -to seg2[5]
+set_location_assignment PIN_105 -to seg2[6]
+set_global_assignment -name VHDL_FILE alpha/ch_z3.vhd
+set_global_assignment -name MIF_FILE alpha/ch_z3.mif
+set_global_assignment -name VHDL_FILE alpha/ch_z2.vhd
+set_global_assignment -name MIF_FILE alpha/ch_z2.mif
+set_global_assignment -name VHDL_FILE alpha/ch_z1.vhd
+set_global_assignment -name MIF_FILE alpha/ch_z1.mif
+set_global_assignment -name VHDL_FILE alpha/ch_z0.vhd
+set_global_assignment -name MIF_FILE alpha/ch_z0.mif
+set_global_assignment -name VHDL_FILE alpha/ch_y3.vhd
+set_global_assignment -name MIF_FILE alpha/ch_y3.mif
+set_global_assignment -name VHDL_FILE alpha/ch_y2.vhd
+set_global_assignment -name MIF_FILE alpha/ch_y2.mif
+set_global_assignment -name VHDL_FILE alpha/ch_y1.vhd
+set_global_assignment -name MIF_FILE alpha/ch_y1.mif
+set_global_assignment -name VHDL_FILE alpha/ch_y0.vhd
+set_global_assignment -name MIF_FILE alpha/ch_y0.mif
+set_global_assignment -name VHDL_FILE alpha/ch_x2.vhd
+set_global_assignment -name MIF_FILE alpha/ch_x2.mif
+set_global_assignment -name VHDL_FILE alpha/ch_x1.vhd
+set_global_assignment -name MIF_FILE alpha/ch_x1.mif
+set_global_assignment -name VHDL_FILE alpha/ch_x0.vhd
+set_global_assignment -name MIF_FILE alpha/ch_x0.mif
+set_global_assignment -name VHDL_FILE alpha/ch_w2.vhd
+set_global_assignment -name MIF_FILE alpha/ch_w2.mif
+set_global_assignment -name VHDL_FILE alpha/ch_w1.vhd
+set_global_assignment -name MIF_FILE alpha/ch_w1.mif
+set_global_assignment -name VHDL_FILE alpha/ch_w0.vhd
+set_global_assignment -name MIF_FILE alpha/ch_w0.mif
+set_global_assignment -name VHDL_FILE alpha/ch_t3.vhd
+set_global_assignment -name MIF_FILE alpha/ch_t3.mif
+set_global_assignment -name VHDL_FILE alpha/ch_t2.vhd
+set_global_assignment -name MIF_FILE alpha/ch_t2.mif
+set_global_assignment -name VHDL_FILE alpha/ch_t1.vhd
+set_global_assignment -name MIF_FILE alpha/ch_t1.mif
+set_global_assignment -name VHDL_FILE alpha/ch_t0.vhd
+set_global_assignment -name MIF_FILE alpha/ch_t0.mif
+set_global_assignment -name VHDL_FILE alpha/ch_s5.vhd
+set_global_assignment -name MIF_FILE alpha/ch_s5.mif
+set_global_assignment -name VHDL_FILE alpha/ch_s4.vhd
+set_global_assignment -name MIF_FILE alpha/ch_s4.mif
+set_global_assignment -name VHDL_FILE alpha/ch_s3.vhd
+set_global_assignment -name MIF_FILE alpha/ch_s3.mif
+set_global_assignment -name VHDL_FILE alpha/ch_s2.vhd
+set_global_assignment -name MIF_FILE alpha/ch_s2.mif
+set_global_assignment -name VHDL_FILE alpha/ch_s1.vhd
+set_global_assignment -name MIF_FILE alpha/ch_s1.mif
+set_global_assignment -name VHDL_FILE alpha/ch_s0.vhd
+set_global_assignment -name MIF_FILE alpha/ch_s0.mif
+set_global_assignment -name VHDL_FILE alpha/ch_r2.vhd
+set_global_assignment -name MIF_FILE alpha/ch_r2.mif
+set_global_assignment -name VHDL_FILE alpha/ch_r1.vhd
+set_global_assignment -name MIF_FILE alpha/ch_r1.mif
+set_global_assignment -name VHDL_FILE alpha/ch_r0.vhd
+set_global_assignment -name MIF_FILE alpha/ch_r0.mif
+set_global_assignment -name VHDL_FILE alpha/ch_q5.vhd
+set_global_assignment -name MIF_FILE alpha/ch_q5.mif
+set_global_assignment -name VHDL_FILE alpha/ch_q4.vhd
+set_global_assignment -name MIF_FILE alpha/ch_q4.mif
+set_global_assignment -name VHDL_FILE alpha/ch_q3.vhd
+set_global_assignment -name MIF_FILE alpha/ch_q3.mif
+set_global_assignment -name VHDL_FILE alpha/ch_q2.vhd
+set_global_assignment -name MIF_FILE alpha/ch_q2.mif
+set_global_assignment -name VHDL_FILE alpha/ch_q1.vhd
+set_global_assignment -name MIF_FILE alpha/ch_q1.mif
+set_global_assignment -name VHDL_FILE alpha/ch_q0.vhd
+set_global_assignment -name MIF_FILE alpha/ch_q0.mif
+set_global_assignment -name VHDL_FILE alpha/ch_p1.vhd
+set_global_assignment -name MIF_FILE alpha/ch_p1.mif
+set_global_assignment -name VHDL_FILE alpha/ch_p0.vhd
+set_global_assignment -name MIF_FILE alpha/ch_p0.mif
+set_global_assignment -name VHDL_FILE alpha/ch_o0.vhd
+set_global_assignment -name MIF_FILE alpha/ch_o0.mif
+set_global_assignment -name VHDL_FILE alpha/ch_n3.vhd
+set_global_assignment -name MIF_FILE alpha/ch_n3.mif
+set_global_assignment -name VHDL_FILE alpha/ch_n2.vhd
+set_global_assignment -name MIF_FILE alpha/ch_n2.mif
+set_global_assignment -name VHDL_FILE alpha/ch_n1.vhd
+set_global_assignment -name MIF_FILE alpha/ch_n1.mif
+set_global_assignment -name VHDL_FILE alpha/ch_n0.vhd
+set_global_assignment -name MIF_FILE alpha/ch_n0.mif
+set_global_assignment -name VHDL_FILE alpha/ch_m2.vhd
+set_global_assignment -name MIF_FILE alpha/ch_m2.mif
+set_global_assignment -name VHDL_FILE alpha/ch_m1.vhd
+set_global_assignment -name MIF_FILE alpha/ch_m1.mif
+set_global_assignment -name VHDL_FILE alpha/ch_m0.vhd
+set_global_assignment -name MIF_FILE alpha/ch_m0.mif
+set_global_assignment -name VHDL_FILE alpha/ch_l3.vhd
+set_global_assignment -name MIF_FILE alpha/ch_l3.mif
+set_global_assignment -name VHDL_FILE alpha/ch_l2.vhd
+set_global_assignment -name MIF_FILE alpha/ch_l2.mif
+set_global_assignment -name VHDL_FILE alpha/ch_l1.vhd
+set_global_assignment -name MIF_FILE alpha/ch_l1.mif
+set_global_assignment -name VHDL_FILE alpha/ch_l0.vhd
+set_global_assignment -name MIF_FILE alpha/ch_l0.mif
+set_global_assignment -name VHDL_FILE alpha/ch_k4.vhd
+set_global_assignment -name VHDL_FILE alpha/ch_k3.vhd
+set_global_assignment -name MIF_FILE alpha/ch_k3.mif
+set_global_assignment -name VHDL_FILE alpha/ch_k2.vhd
+set_global_assignment -name MIF_FILE alpha/ch_k2.mif
+set_global_assignment -name VHDL_FILE alpha/ch_k1.vhd
+set_global_assignment -name MIF_FILE alpha/ch_k1.mif
+set_global_assignment -name VHDL_FILE alpha/ch_k0.vhd
+set_global_assignment -name MIF_FILE alpha/ch_k0.mif
+set_global_assignment -name VHDL_FILE alpha/ch_j2.vhd
+set_global_assignment -name MIF_FILE alpha/ch_j2.mif
+set_global_assignment -name VHDL_FILE alpha/ch_j1.vhd
+set_global_assignment -name MIF_FILE alpha/ch_j1.mif
+set_global_assignment -name VHDL_FILE alpha/ch_j0.vhd
+set_global_assignment -name MIF_FILE alpha/ch_j0.mif
+set_global_assignment -name VHDL_FILE alpha/ch_h8.vhd
+set_global_assignment -name VHDL_FILE alpha/ch_h7.vhd
+set_global_assignment -name MIF_FILE alpha/ch_h7.mif
+set_global_assignment -name VHDL_FILE alpha/ch_h6.vhd
+set_global_assignment -name MIF_FILE alpha/ch_h6.mif
+set_global_assignment -name VHDL_FILE alpha/ch_h5.vhd
+set_global_assignment -name MIF_FILE alpha/ch_h5.mif
+set_global_assignment -name VHDL_FILE alpha/ch_h4.vhd
+set_global_assignment -name MIF_FILE alpha/ch_h4.mif
+set_global_assignment -name VHDL_FILE alpha/ch_h3.vhd
+set_global_assignment -name MIF_FILE alpha/ch_h3.mif
+set_global_assignment -name VHDL_FILE alpha/ch_h2.vhd
+set_global_assignment -name MIF_FILE alpha/ch_h2.mif
+set_global_assignment -name VHDL_FILE alpha/ch_h1.vhd
+set_global_assignment -name MIF_FILE alpha/ch_h1.mif
+set_global_assignment -name VHDL_FILE alpha/ch_h0.vhd
+set_global_assignment -name MIF_FILE alpha/ch_h0.mif
+set_global_assignment -name VHDL_FILE alpha/ch_g6.vhd
+set_global_assignment -name MIF_FILE alpha/ch_g6.mif
+set_global_assignment -name VHDL_FILE alpha/ch_g5.vhd
+set_global_assignment -name MIF_FILE alpha/ch_g5.mif
+set_global_assignment -name VHDL_FILE alpha/ch_g4.vhd
+set_global_assignment -name MIF_FILE alpha/ch_g4.mif
+set_global_assignment -name VHDL_FILE alpha/ch_g3.vhd
+set_global_assignment -name MIF_FILE alpha/ch_g3.mif
+set_global_assignment -name VHDL_FILE alpha/ch_g2.vhd
+set_global_assignment -name MIF_FILE alpha/ch_g2.mif
+set_global_assignment -name VHDL_FILE alpha/ch_g1.vhd
+set_global_assignment -name MIF_FILE alpha/ch_g1.mif
+set_global_assignment -name VHDL_FILE alpha/ch_g0.vhd
+set_global_assignment -name MIF_FILE alpha/ch_g0.mif
+set_global_assignment -name VHDL_FILE alpha/ch_f5.vhd
+set_global_assignment -name MIF_FILE alpha/ch_f5.mif
+set_global_assignment -name VHDL_FILE alpha/ch_f4.vhd
+set_global_assignment -name MIF_FILE alpha/ch_f4.mif
+set_global_assignment -name VHDL_FILE alpha/ch_f3.vhd
+set_global_assignment -name MIF_FILE alpha/ch_f3.mif
+set_global_assignment -name VHDL_FILE alpha/ch_f2.vhd
+set_global_assignment -name MIF_FILE alpha/ch_f2.mif
+set_global_assignment -name VHDL_FILE alpha/ch_f1.vhd
+set_global_assignment -name MIF_FILE alpha/ch_f1.mif
+set_global_assignment -name VHDL_FILE alpha/ch_f0.vhd
+set_global_assignment -name MIF_FILE alpha/ch_f0.mif
+set_global_assignment -name VHDL_FILE alpha/ch_e0.vhd
+set_global_assignment -name MIF_FILE alpha/ch_e0.mif
+set_global_assignment -name VHDL_FILE alpha/sur.vhd
+set_global_assignment -name VHDL_FILE alpha/que.vhd
+set_global_assignment -name VHDL_FILE alpha/dot.vhd
+set_global_assignment -name VHDL_FILE alpha/com.vhd
+set_global_assignment -name VHDL_FILE alpha/ch_d6.vhd
+set_global_assignment -name MIF_FILE alpha/ch_d6.mif
+set_global_assignment -name VHDL_FILE alpha/ch_d5.vhd
+set_global_assignment -name MIF_FILE alpha/ch_d5.mif
+set_global_assignment -name VHDL_FILE alpha/ch_d4.vhd
+set_global_assignment -name MIF_FILE alpha/ch_d4.mif
+set_global_assignment -name VHDL_FILE alpha/ch_d3.vhd
+set_global_assignment -name MIF_FILE alpha/ch_d3.mif
+set_global_assignment -name VHDL_FILE alpha/ch_d2.vhd
+set_global_assignment -name MIF_FILE alpha/ch_d2.mif
+set_global_assignment -name VHDL_FILE alpha/ch_d1.vhd
+set_global_assignment -name MIF_FILE alpha/ch_d1.mif
+set_global_assignment -name VHDL_FILE alpha/ch_d0.vhd
+set_global_assignment -name MIF_FILE alpha/ch_d0.mif
+set_global_assignment -name VHDL_FILE alpha/ch_c5.vhd
+set_global_assignment -name MIF_FILE alpha/ch_c5.mif
+set_global_assignment -name VHDL_FILE alpha/ch_c4.vhd
+set_global_assignment -name MIF_FILE alpha/ch_c4.mif
+set_global_assignment -name VHDL_FILE alpha/ch_c3.vhd
+set_global_assignment -name MIF_FILE alpha/ch_c3.mif
+set_global_assignment -name VHDL_FILE alpha/ch_c2.vhd
+set_global_assignment -name MIF_FILE alpha/ch_c2.mif
+set_global_assignment -name VHDL_FILE alpha/ch_c1.vhd
+set_global_assignment -name MIF_FILE alpha/ch_c1.mif
+set_global_assignment -name VHDL_FILE alpha/ch_c0.vhd
+set_global_assignment -name MIF_FILE alpha/ch_c0.mif
+set_global_assignment -name VHDL_FILE alpha/ch_bc.vhd
+set_global_assignment -name MIF_FILE alpha/ch_bc.mif
+set_global_assignment -name VHDL_FILE alpha/ch_bb.vhd
+set_global_assignment -name MIF_FILE alpha/ch_bb.mif
+set_global_assignment -name VHDL_FILE alpha/ch_ba.vhd
+set_global_assignment -name MIF_FILE alpha/ch_ba.mif
+set_global_assignment -name VHDL_FILE alpha/ch_b9.vhd
+set_global_assignment -name MIF_FILE alpha/ch_b9.mif
+set_global_assignment -name VHDL_FILE alpha/ch_b8.vhd
+set_global_assignment -name MIF_FILE alpha/ch_b8.mif
+set_global_assignment -name VHDL_FILE alpha/ch_b7.vhd
+set_global_assignment -name MIF_FILE alpha/ch_b7.mif
+set_global_assignment -name VHDL_FILE alpha/ch_b6.vhd
+set_global_assignment -name MIF_FILE alpha/ch_b6.mif
+set_global_assignment -name VHDL_FILE alpha/ch_b5.vhd
+set_global_assignment -name MIF_FILE alpha/ch_b5.mif
+set_global_assignment -name VHDL_FILE alpha/ch_b4.vhd
+set_global_assignment -name MIF_FILE alpha/ch_b4.mif
+set_global_assignment -name VHDL_FILE alpha/ch_b3.vhd
+set_global_assignment -name MIF_FILE alpha/ch_b3.mif
+set_global_assignment -name VHDL_FILE alpha/ch_b2.vhd
+set_global_assignment -name MIF_FILE alpha/ch_b2.mif
+set_global_assignment -name VHDL_FILE alpha/ch_b1.vhd
+set_global_assignment -name MIF_FILE alpha/ch_b1.mif
+set_global_assignment -name VHDL_FILE alpha/ch_b0.vhd
+set_global_assignment -name MIF_FILE alpha/ch_b0.mif
+set_global_assignment -name SOURCE_FILE alpha/ch_a5.vhd.bak
+set_global_assignment -name VHDL_FILE alpha/ch_a5.vhd
+set_global_assignment -name MIF_FILE alpha/ch_a5.mif
+set_global_assignment -name VHDL_FILE alpha/ch_a4.vhd
+set_global_assignment -name MIF_FILE alpha/ch_a4.mif
+set_global_assignment -name VHDL_FILE alpha/ch_a3.vhd
+set_global_assignment -name MIF_FILE alpha/ch_a3.mif
+set_global_assignment -name VHDL_FILE alpha/ch_a2.vhd
+set_global_assignment -name MIF_FILE alpha/ch_a2.mif
+set_global_assignment -name VHDL_FILE alpha/ch_a1.vhd
+set_global_assignment -name MIF_FILE alpha/ch_a1.mif
+set_global_assignment -name VHDL_FILE alpha/ch_a0.vhd
+set_global_assignment -name MIF_FILE alpha/ch_a0.mif
+set_global_assignment -name SOURCE_FILE alpha/A_.vhd.bak
+set_global_assignment -name SOURCE_FILE alpha/8.vhd.bak
+set_global_assignment -name VHDL_FILE VHDs/Controller.vhd
+set_global_assignment -name SOURCE_FILE pll.cmp
+set_global_assignment -name QIP_FILE pll.qip
+set_global_assignment -name VHDL_FILE alpha/Z_.vhd
+set_global_assignment -name VHDL_FILE alpha/Y_.vhd
+set_global_assignment -name VHDL_FILE alpha/X_.vhd
+set_global_assignment -name VHDL_FILE alpha/W_.vhd
+set_global_assignment -name VHDL_FILE alpha/V_.vhd
+set_global_assignment -name VHDL_FILE alpha/U_.vhd
+set_global_assignment -name VHDL_FILE alpha/T_.vhd
+set_global_assignment -name VHDL_FILE alpha/S_.vhd
+set_global_assignment -name VHDL_FILE alpha/R_.vhd
+set_global_assignment -name VHDL_FILE alpha/Q_.vhd
+set_global_assignment -name VHDL_FILE alpha/P_.vhd
+set_global_assignment -name VHDL_FILE alpha/O_.vhd
+set_global_assignment -name VHDL_FILE alpha/N_.vhd
+set_global_assignment -name VHDL_FILE alpha/M_.vhd
+set_global_assignment -name VHDL_FILE alpha/L_.vhd
+set_global_assignment -name VHDL_FILE alpha/K_.vhd
+set_global_assignment -name VHDL_FILE alpha/J_.vhd
+set_global_assignment -name VHDL_FILE alpha/I_.vhd
+set_global_assignment -name VHDL_FILE alpha/H_.vhd
+set_global_assignment -name VHDL_FILE alpha/G_.vhd
+set_global_assignment -name VHDL_FILE alpha/F_.vhd
+set_global_assignment -name VHDL_FILE alpha/E_.vhd
+set_global_assignment -name VHDL_FILE alpha/D_.vhd
+set_global_assignment -name VHDL_FILE alpha/C_.vhd
+set_global_assignment -name VHDL_FILE alpha/B_.vhd
+set_global_assignment -name VHDL_FILE alpha/A_.vhd
+set_global_assignment -name MIF_FILE alpha/Z_.mif
+set_global_assignment -name VHDL_FILE alpha/z.vhd
+set_global_assignment -name MIF_FILE alpha/z.mif
+set_global_assignment -name MIF_FILE alpha/Y_.mif
+set_global_assignment -name VHDL_FILE alpha/y.vhd
+set_global_assignment -name MIF_FILE alpha/y.mif
+set_global_assignment -name MIF_FILE alpha/X_.mif
+set_global_assignment -name VHDL_FILE alpha/x.vhd
+set_global_assignment -name MIF_FILE alpha/x.mif
+set_global_assignment -name MIF_FILE alpha/W_.mif
+set_global_assignment -name VHDL_FILE alpha/w.vhd
+set_global_assignment -name MIF_FILE alpha/w.mif
+set_global_assignment -name MIF_FILE alpha/V_.mif
+set_global_assignment -name VHDL_FILE alpha/v.vhd
+set_global_assignment -name MIF_FILE alpha/v.mif
+set_global_assignment -name MIF_FILE alpha/U_.mif
+set_global_assignment -name VHDL_FILE alpha/u.vhd
+set_global_assignment -name MIF_FILE alpha/u.mif
+set_global_assignment -name MIF_FILE alpha/T_.mif
+set_global_assignment -name VHDL_FILE alpha/t.vhd
+set_global_assignment -name MIF_FILE alpha/t.mif
+set_global_assignment -name MIF_FILE alpha/sur.mif
+set_global_assignment -name MIF_FILE alpha/S_.mif
+set_global_assignment -name VHDL_FILE alpha/s.vhd
+set_global_assignment -name MIF_FILE alpha/s.mif
+set_global_assignment -name MIF_FILE alpha/R_.mif
+set_global_assignment -name VHDL_FILE alpha/r.vhd
+set_global_assignment -name MIF_FILE alpha/r.mif
+set_global_assignment -name MIF_FILE alpha/que.mif
+set_global_assignment -name MIF_FILE alpha/Q_.mif
+set_global_assignment -name VHDL_FILE alpha/q.vhd
+set_global_assignment -name MIF_FILE alpha/q.mif
+set_global_assignment -name MIF_FILE alpha/P_.mif
+set_global_assignment -name VHDL_FILE alpha/p.vhd
+set_global_assignment -name MIF_FILE alpha/p.mif
+set_global_assignment -name MIF_FILE alpha/O_.mif
+set_global_assignment -name VHDL_FILE alpha/o.vhd
+set_global_assignment -name MIF_FILE alpha/o.mif
+set_global_assignment -name MIF_FILE alpha/N_.mif
+set_global_assignment -name VHDL_FILE alpha/n.vhd
+set_global_assignment -name MIF_FILE alpha/n.mif
+set_global_assignment -name MIF_FILE alpha/M_.mif
+set_global_assignment -name VHDL_FILE alpha/m.vhd
+set_global_assignment -name MIF_FILE alpha/m.mif
+set_global_assignment -name MIF_FILE alpha/L_.mif
+set_global_assignment -name VHDL_FILE alpha/l.vhd
+set_global_assignment -name MIF_FILE alpha/l.mif
+set_global_assignment -name MIF_FILE alpha/K_.mif
+set_global_assignment -name VHDL_FILE alpha/k.vhd
+set_global_assignment -name MIF_FILE alpha/k.mif
+set_global_assignment -name MIF_FILE alpha/J_.mif
+set_global_assignment -name VHDL_FILE alpha/j.vhd
+set_global_assignment -name MIF_FILE alpha/j.mif
+set_global_assignment -name MIF_FILE alpha/I_.mif
+set_global_assignment -name VHDL_FILE alpha/i.vhd
+set_global_assignment -name MIF_FILE alpha/i.mif
+set_global_assignment -name MIF_FILE alpha/H_.mif
+set_global_assignment -name VHDL_FILE alpha/h.vhd
+set_global_assignment -name MIF_FILE alpha/h.mif
+set_global_assignment -name MIF_FILE alpha/G_.mif
+set_global_assignment -name MIF_FILE alpha/F_.mif
+set_global_assignment -name MIF_FILE alpha/E_.mif
+set_global_assignment -name MIF_FILE alpha/dot.mif
+set_global_assignment -name MIF_FILE alpha/D_.mif
+set_global_assignment -name MIF_FILE alpha/com.mif
+set_global_assignment -name MIF_FILE alpha/C_.mif
+set_global_assignment -name MIF_FILE alpha/B_.mif
+set_global_assignment -name MIF_FILE alpha/A_.mif
+set_global_assignment -name VHDL_FILE alpha/9.vhd
+set_global_assignment -name MIF_FILE alpha/9.mif
+set_global_assignment -name VHDL_FILE alpha/8.vhd
+set_global_assignment -name MIF_FILE alpha/8.mif
+set_global_assignment -name VHDL_FILE alpha/7.vhd
+set_global_assignment -name MIF_FILE alpha/7.mif
+set_global_assignment -name VHDL_FILE alpha/6.vhd
+set_global_assignment -name MIF_FILE alpha/6.mif
+set_global_assignment -name VHDL_FILE alpha/5.vhd
+set_global_assignment -name MIF_FILE alpha/5.mif
+set_global_assignment -name VHDL_FILE alpha/4.vhd
+set_global_assignment -name MIF_FILE alpha/4.mif
+set_global_assignment -name VHDL_FILE alpha/3.vhd
+set_global_assignment -name MIF_FILE alpha/3.mif
+set_global_assignment -name VHDL_FILE alpha/2.vhd
+set_global_assignment -name MIF_FILE alpha/2.mif
+set_global_assignment -name VHDL_FILE alpha/1.vhd
+set_global_assignment -name MIF_FILE alpha/1.mif
+set_global_assignment -name VHDL_FILE alpha/0.vhd
+set_global_assignment -name MIF_FILE alpha/0.mif
+set_global_assignment -name VHDL_FILE alpha/g.vhd
+set_global_assignment -name MIF_FILE alpha/g.mif
+set_global_assignment -name VHDL_FILE alpha/f.vhd
+set_global_assignment -name MIF_FILE alpha/f.mif
+set_global_assignment -name VHDL_FILE alpha/e.vhd
+set_global_assignment -name MIF_FILE alpha/e.mif
+set_global_assignment -name VHDL_FILE alpha/d.vhd
+set_global_assignment -name MIF_FILE alpha/d.mif
+set_global_assignment -name VHDL_FILE alpha/c.vhd
+set_global_assignment -name MIF_FILE alpha/c.mif
+set_global_assignment -name VHDL_FILE alpha/b.vhd
+set_global_assignment -name MIF_FILE alpha/b.mif
+set_global_assignment -name VHDL_FILE alpha/a.vhd
+set_global_assignment -name MIF_FILE alpha/a.mif
+set_global_assignment -name VHDL_FILE VHDs/VGA_640480.vhd
+set_global_assignment -name VHDL_FILE VHDs/SerialToString.vhd
+set_global_assignment -name VHDL_FILE VHDs/serial.vhd
+set_global_assignment -name VHDL_FILE VHDs/seg7.vhd
+set_global_assignment -name VHDL_FILE VHDs/Keyboard.vhd
+set_global_assignment -name VHDL_FILE VHDs/GlobalDefines.vhd
+set_global_assignment -name VHDL_FILE VHDs/digital_rom.vhd
+set_global_assignment -name VHDL_FILE VHDs/chat.vhd
+set_global_assignment -name SDC_FILE chat.sdc
+set_global_assignment -name QIP_FILE pll100_25.qip
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

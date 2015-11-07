@@ -1,0 +1,231 @@
+-------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_unsigned.all;
+use work.GlobalDefines.all;
+-------------------------------------------------------------------------------------
+entity Controller is
+	port (
+		reset		:	in std_logic;
+	
+		clk			:	in std_logic;
+		
+		keyClk		:	in std_logic;
+		keyIn		:	in MyCharacter;
+		
+		errorShow	:	out	std_logic;
+		
+		d_out		:	out std_logic;
+		output		: 	buffer StandardWindow;
+		
+		d_send		:	out std_logic;
+		outputSend	:	buffer MyString_140d;
+		
+		d_rec		:	in std_logic;
+		inputRec	:	in MyString_140d;
+		
+		test		: 	out std_logic_vector(3 downto 0)
+	);
+end entity;
+-------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
+architecture structural of Controller is
+
+	type STATE_TYPE is (s_init, s_idle, s_r0, s_r1, s_r2, s_sb0, s_s0, s_s1, s_s2);
+	
+	constant nulString : MyString_140d := (others => CHAR_NULL);
+		
+	signal state : STATE_TYPE := s_init; 
+	signal outputUp 	: MyString_140d := nulString;
+	signal outputDown	: MyString_140d := nulString;
+	
+	signal outputBuffer	: StandardWindow; -- 怎么初始化??
+	
+	signal str : MyString_140d := (others => CHAR_NULL);
+	signal len : LengthInt := 0;
+	signal nextlen: LengthInt := 0;
+
+	
+	signal sendCnt : integer := 0;
+	signal counterClock: integer := 0;
+
+	constant COUNTER_MAX : integer := 423;
+	signal	clock	:	std_logic := '0';
+	signal	counterclk:	integer range 0 to COUNTER_MAX := 0;
+	
+	signal er : std_logic := '0';
+	signal ew : std_logic := '0';
+	-- signal eew : std_logic := '0';
+	
+	signal ds : std_logic := '1';
+	
+	signal t1	: std_logic := '0';
+	signal t2	: std_logic := '0';
+	
+begin
+
+	d_send <= ds;
+	d_out <= er and ew;
+	-- test1 <= t1;
+	-- test2 <= t2;
+	
+	process (keyClk,reset,ew)
+	begin
+		if reset = '0' then
+			  outputUp 	<= nulString;
+		      outputDown  <= nulString;
+		      outputSend	<= nulString;
+			  len <= 0;
+			-- do sth to restart
+		elsif keyClk'event and keyClk = '0' then
+				-- eew <= '1';
+				if keyIn = CHAR_ENTER then
+					-- show up;
+					outputUp <= outputDown;
+					-- show down clear
+					outputDown <= nulString;
+					-- send to the other;
+					outputSend <= outputDown;
+					len <= 0;
+				elsif keyIn = CHAR_BACKSPACE then
+					-- backspace
+					if len > 1 then
+						outputDown(len-1) <= CHAR_NULL;
+						len <= len-1;
+					end if;
+					outputUp <= nulString;
+					outputSend <= nulString;
+				else
+					if len < 140 then
+						-- show down
+						outputDown(len) <= keyIn;
+						len <= len + 1;
+					end if;
+					outputUp <= nulString;
+					outputSend <= nulString;
+				end if;
+		end if;
+end process;
+
+	-------------------------------------------------------------------------------------		
+--分频器
+	process(clk, reset) 
+	begin
+		if reset = '0' then
+			counterClock <= 0;
+			Clock <= '1';
+		elsif clk'event and clk = '1' then
+			if counterClock = COUNTER_MAX then 
+				counterClock <= 0;
+				Clock <= not Clock;
+			else
+				counterClock <=counterClock + 1;
+			end if;
+		end if;
+	end process;
+	
+	process (clk, reset)
+	begin 
+		if reset = '0' then 
+			state <= s_init;
+		elsif clk'event and clk = '1' then
+			case state is
+				when s_init =>
+					state <= s_idle;
+				when s_idle =>
+					if keyClk = '1' then
+						ew <= '1';
+						state <= s_sb0;
+					elsif d_rec = '1' then 
+						er <= '1';
+						state <= s_r0;
+					else 
+						state <= s_idle;
+					end if;
+				when s_r0	=>
+					if (not equal(inputRec(0),CHAR_NULL)) then
+						outputBuffer(10) <= output(9);
+						outputBuffer(9) <= output(8);
+						outputBuffer(8) <= output(7);
+						outputBuffer(7) <= output(6);
+						outputBuffer(6) <= output(5);
+						outputBuffer(5) <= output(4);
+						outputBuffer(4) <= output(3);
+						outputBuffer(3) <= output(2);
+						outputBuffer(2) <= output(1);
+						outputBuffer(1).txt <= inputRec;
+						outputBuffer(1).isMine <= '0';
+					end if;
+					outputBuffer(0).txt <= outputDown;
+					outputBuffer(0).isMine <= '1';
+					state <= s_r1;
+					
+				when s_r1	=>
+					output <= outputBuffer;
+					state <= s_r2;
+				when s_r2	=>
+					er <= '0';
+					state <= s_idle;
+				when s_sb0	=>
+					-- t1 <= '1';
+
+					if keyClk = '0' then
+						state <= s_s0;
+					else
+						state <= s_sb0;
+					end if;
+				when s_s0	=>
+						if (not equal (outputUp(0) , CHAR_NULL)) then
+							outputBuffer(10) <= output(9);
+							outputBuffer(9) <= output(8);
+							outputBuffer(8) <= output(7);
+							outputBuffer(7) <= output(6);
+							outputBuffer(6) <= output(5);
+							outputBuffer(5) <= output(4);
+							outputBuffer(4) <= output(3);
+							outputBuffer(3) <= output(2);
+							outputBuffer(2) <= output(1);
+							outputBuffer(1).txt <= outputUp;
+							outputBuffer(1).isMine <= '1';
+						end if;
+						outputBuffer(0).txt <= outputDown;
+						outputBuffer(0).isMine <= '1';
+						ds <= '1';
+						state <= s_s1;
+						-- t2 <= '1';
+				when s_s1	=>
+					output <= outputBuffer;
+					state <= s_s2;
+				when s_s2	=>
+					ew <= '0';
+					ds <= '0';
+					state <= s_idle;
+			end case;
+		end if;
+	end process;
+	
+	process (state)
+	begin
+		case state is
+			when s_idle=>
+				test <= "0000";
+			when s_sb0=>
+				test <= "0001";
+			when s_s0=>
+				test <= "0010";
+			when s_s1=>
+				test <= "0011";
+			when s_s2=>
+				test <= "0100";
+			when s_r0=>
+				test <= "1000";
+			when s_r1=>
+				test <= "1001";
+			when s_r2=>
+				test <= "1010";
+			when s_init=>
+				test <= "1111";
+		end case;
+	end process;
+end;

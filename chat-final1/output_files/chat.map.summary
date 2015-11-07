@@ -1,0 +1,14 @@
+Analysis & Synthesis Status : Successful - Tue Jun 10 02:42:23 2014
+Quartus II 64-Bit Version : 13.0.1 Build 232 06/12/2013 SP 1 SJ Full Version
+Revision Name : chat
+Top-level Entity Name : chat
+Family : Cyclone II
+Total logic elements : 13,024
+    Total combinational functions : 7,394
+    Dedicated logic registers : 6,603
+Total registers : 6603
+Total pins : 81
+Total virtual pins : 0
+Total memory bits : 178,176
+Embedded Multiplier 9-bit elements : 16
+Total PLLs : 2

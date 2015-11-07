@@ -1,0 +1,557 @@
+-------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
+library ieee;
+use ieee.std_logic_1164.all;
+use work.GlobalDefines.all;
+use ieee.std_logic_unsigned.all;
+-------------------------------------------------------------------------------------
+entity chat is
+	port (
+		Clock100M_FPGAE			:	in std_logic;	--100MHz
+		reset		:	in std_logic;
+		
+		PS2clk		:	inout std_logic;
+		PS2Data		:	in std_logic;
+		
+		--hs			:	out std_logic;
+		--vs			:	out std_logic;
+		--rgb			:	buffer RGBColor;
+		
+		--VGA_B       :   out std_logic_vector(2 downto 0);
+		--VGA_G       :   out std_logic_vector(2 downto 0);
+		--VGA_R       :   out std_logic_vector(2 downto 0);
+---------------------------
+	-- data_in, clk_in : std_logic;
+	 -- clk_0: in std_logic;
+	hs,vs: out STD_LOGIC;
+	seg0, seg1 : out std_logic_vector(6 downto 0); 
+	seg2, seg3 : out std_logic_vector(6 downto 0);
+	seg4, seg5 : out std_logic_vector(6 downto 0);
+	seg6, seg07 : out std_logic_vector(6 downto 0);
+	r,g,b: out STD_LOGIC_vector(2 downto 0);
+------------------------------------
+	eeo, eek, eer, erd, ewr : out std_logic;
+------------------------------------
+------------------------------------
+		--Serial
+		TXD_FPGAE   : out std_logic;
+		RXD_FPGAE	: in  std_logic;
+		--FPGAC_FPGAE_CPUCLK : in std_logic;
+		ClockK_FPGAE: in std_logic --11.0592M
+-------------------------------------------------
+--		FPGAC_FPGAE_RamAdd    : buffer std_logic_vector(20 downto 0);
+--		FPGAC_Ram_Data        : inout std_logic_vector(31 downto 0);
+--		FPGAE_FPGAC_RamRW     : buffer std_logic_vector(1 downto 0);
+--		FPGAC_FPGAE_Judgement : in std_logic;
+--		FPGAC_FPGAE_Reset     : in std_logic;
+--		FPGAC_FPGAE_RegCLK : in std_logic;
+--		FPGAE_FPGAC_REG1   : out std_logic;
+--		FPGAC_FPGAE_RegReset : in std_logic;
+----------------------------------------------
+--	    FPGAE_Led            : buffer std_logic_vector(2 downto 0);
+-----------------------------------------------
+--	    Key_FPGAE        : in std_logic_vector(3 downto 0)
+-----------------------------------------------
+----		prompt		:	out std_logic_vector (3 downto 0)
+	);
+end entity;
+-------------------------------------------------------------------------------------
+architecture structural of chat is
+	signal prompt :   std_logic_vector(3 downto 0) := "0000";
+-------------------------------------------------------------------------------------
+	signal clk			:	std_logic;
+	signal clk2			:	std_logic;
+	signal clk4			:	std_logic;
+	signal txtColor		:	ColorLayer;
+	signal bgColor		:	ColorLayer;
+	signal ttColor		:	ColorLayer;
+	signal erColor		:	ColorLayer;
+	signal errorShow	:	std_logic;
+	signal xPos			:	Coordinate;
+	signal yPos			:	Coordinate;
+	signal text			:	StandardWindow;
+	signal keyClk		:	std_logic;
+	signal keyIn		:	MyCharacter;
+
+
+	type	reg_type		is	array (0 to 7) of std_logic_vector(31 downto 0);
+	signal	register_file	:	reg_type;
+	signal  State		:	std_logic_vector(7 downto 0) := X"00";
+	signal  State_RW		:	std_logic_vector(1 downto 0) := "00";
+	signal  DataBuffer  :   std_logic_vector(31 downto 0);
+	signal  AddrBuffer  :   std_logic_vector(18 downto 0) :=  (others => '0');
+	signal  KEY_FPAGE		:	std_logic := '0';
+	
+	signal err	: std_logic;
+-------------------------------------------------------------------------------------
+	component DivideClock is
+		port (
+			clk		:	in std_logic;
+			reset	:	in std_logic;
+			outClk	:	buffer std_logic
+		);
+	end component;
+
+	
+-------------------------------------------------------------------------------------
+
+	component Controller
+	port (
+		reset		:	in std_logic;
+	
+		clk			:	in std_logic;
+		
+		keyClk		:	in std_logic;
+		keyIn		:	in MyCharacter;
+		
+		errorShow	:	out	std_logic;
+		
+		d_out		:	out std_logic;
+		output		: 	buffer StandardWindow;
+		
+		d_send		:	out std_logic;
+		outputSend	:	buffer MyString_140d;
+		
+		d_rec		:	in std_logic;
+		inputRec	:	in MyString_140d
+		
+		
+	);
+	end component;
+	
+	--
+	
+	COMPONENT serial
+	port (
+	Reset	:	in std_logic;
+	dataT    :   in std_logic_vector(7 downto 0);		--  要输出去的!!
+	dataR	  :	  out std_logic_vector(7 downto 0);		--  要输读进来的的!!
+
+	clk :  in std_logic;				--- 11.0592M
+	
+	RxD :  in std_logic;				--  receive
+	TxD :  out std_logic;				--  tra
+	
+	rd	:	in std_logic;
+	wr	:	in std_logic
+	);
+	end component;
+	
+	--
+	
+	component SerialToString
+    port (
+		reset	:	in std_logic;
+		clk		:	in std_logic;
+		
+		rd	:	in std_logic; 
+		dataR	:	in std_logic_vector(7 downto 0);	
+		s_toRec	:	out MyString_140d;
+		rdo		: 	out std_logic;
+		
+		wr		:	in std_logic;	
+		dataT	:	out std_logic_vector(7 downto 0);	
+		s_toSend:	in MyString_140d;
+		wro		: 	out std_logic		
+	);
+	end component;
+	
+	-- by ck
+	component vga640480 is
+	 port(
+			address		:		  out	STD_LOGIC_VECTOR(13 DOWNTO 0);
+			reset       :         in  STD_LOGIC;
+			clk25       :		  out std_logic; 
+			clk_0       :         in  STD_LOGIC; --100M????
+			hs,vs       :         out STD_LOGIC; --?????????
+			r, g, b		:		  out std_logic_vector(2 downto 0);
+			rgb         :         in  std_logic_vector(2 downto 0);
+			input_clk   :         in  std_logic;
+			--pic         :         in  std_logic_vector(2 downto 0);
+			vga_output  :         in  StandardWindow;
+			disp_code   :         out std_logic_vector(7 downto 0)
+			--rgb_bg      :         in  std_logic_vector(8 downto 0);
+			--bg_line     :         out std_logic_vector(4 downto 0)
+	  );
+end component;
+component Keyboard is
+port (
+	datain, clkin : in std_logic ; -- PS2 clk and data
+	fclk, rst     : in std_logic ;  -- filter clock
+--	fok : out std_logic ;  -- data output enable signal
+	scancode      : out std_logic_vector(7 downto 0) -- scan code signal output
+	) ;
+end component ;
+-------------------------------------------------------------------
+component seg7 is
+port(
+code    : in std_logic_vector(3 downto 0);
+seg_out : out std_logic_vector(6 downto 0)
+);
+end component;
+-------------------------------------------------------------------
+component bug is
+	port
+	(
+		input		   : in std_logic;
+		output      : out std_logic_vector(2 downto 0)
+	);
+end component;
+-------------------------------------------------------------------
+
+	component alpha_a IS
+	PORT
+	(
+		address		: IN STD_LOGIC_VECTOR (13 DOWNTO 0);
+		clock		   : IN STD_LOGIC ;
+		q      		: out STD_LOGIC_vector(2 downto 0)
+	);
+END component;
+
+component alpha_b IS
+	PORT
+	(
+		address		: IN STD_LOGIC_VECTOR (13 DOWNTO 0);
+		clock		   : IN STD_LOGIC ;
+		q      		: out STD_LOGIC_vector(2 downto 0)
+	);
+END component;
+
+component alpha_c IS
+	PORT
+	(
+		address		: IN STD_LOGIC_VECTOR (13 DOWNTO 0);
+		clock		   : IN STD_LOGIC ;
+		q      		: out STD_LOGIC_vector(2 downto 0)
+	);
+END component;
+
+component alpha_d IS
+	PORT
+	(
+		address		: IN STD_LOGIC_VECTOR (13 DOWNTO 0);
+		clock		   : IN STD_LOGIC ;
+		q      		: out STD_LOGIC_vector(2 downto 0)
+	);
+END component;
+
+component alpha_e IS
+	PORT
+	(
+		address		: IN STD_LOGIC_VECTOR (13 DOWNTO 0);
+		clock		   : IN STD_LOGIC ;
+		q      		: out STD_LOGIC_vector(2 downto 0)
+	);
+END component;
+
+component alpha_f IS
+	PORT
+	(
+		address		: IN STD_LOGIC_VECTOR (13 DOWNTO 0);
+		clock		   : IN STD_LOGIC ;
+		q      		: out STD_LOGIC_vector(2 downto 0)
+		);
+end component;
+
+component alpha_g IS
+	PORT
+	(
+		address		: IN STD_LOGIC_VECTOR (13 DOWNTO 0);
+		clock		   : IN STD_LOGIC ;
+		q      		: out STD_LOGIC_vector(2 downto 0)
+		);
+end component;
+
+signal address_tmp: std_logic_vector(13 downto 0);
+signal clk25: std_logic;
+signal rgb, rgb_a, rgb_b, rgb_0: std_logic_vector(2 downto 0);
+signal rgb_c, rgb_d, rgb_e, rgb_f, rgb_g : std_logic_vector(2 downto 0);
+--signal rgb_bg : std_logic_vector(8 downto 0);
+--signal rgb_1, rgb_2, rgb_3, rgb_4, rgb_5, rgb_6, rgb_7, rgb_8, rgb_9, rgb_10, rgb_11, rgb_12, rgb_13, rgb_14, rgb_15, rgb_16, rgb_17, rgb_18, rgb_19 : std_logic_vector(2 downto 0);
+signal r1 , g1, b1 : std_logic;
+
+signal data_in, clk_in : std_logic;
+-------------------------------------------------------------------
+
+signal char_code : std_logic_vector(7 downto 0);			--
+signal disp_code : std_logic_vector(7 downto 0);
+signal vga_update_clk : std_logic;
+signal vga_output : StandardWindow;
+signal key : MyCharacter;
+signal ek : std_logic;
+signal input_clk : std_logic;
+signal window : StandardWindow;
+signal clk_0 : std_logic;
+signal er,ew,es,eo : std_logic;
+signal rec, send : MyString_140d;
+signal dataR, dataT : std_logic_vector (7 downto 0);
+signal rd,wr : std_logic;
+signal rst : std_logic;
+signal scancode   :  std_logic_vector(7 downto 0);
+signal pic_choose :  std_logic_vector(2 downto 0);    -- 0: 16*32  1: 128*128
+signal bg_line    :  std_logic_vector(4 downto 0);
+
+--signal 
+---------ck--------
+
+-------------------------------------------------------------------------------------
+begin
+---------------------------------------------------------------------------
+
+
+	key <= char_code;
+	ek <= input_clk;
+	vga_output <= window;
+	clk_0 <= Clock100M_FPGAE;
+	clk <= Clock100M_FPGAE;
+	
+	clk_in <= PS2clk;
+	data_in <= PS2Data;
+	
+	eeo <= eo;
+	eek <= ek;
+	eer <= er;
+	erd <= rd;
+	ewr <= wr;
+----
+
+	u_serialToString : SerialToString port map(
+		reset	=> reset,
+		clk		=> clk,
+		
+		rd		=> er, 
+		dataR	=> dataR,
+		s_toRec	=> rec,
+		rdo		=> rd,
+		
+		wr		=> es,	
+		dataT	=> dataT,
+		s_toSend=> send,
+		wro		=> wr
+    );
+	
+	u_serial	: Serial port map (
+		Reset	=> reset,
+		dataT   => dataT,		--  要输出去的!!
+		dataR	=> dataR,		--  要输读进来的的!!
+
+		clk => clk,				--- 11.0592M
+	
+		RxD => RXD_FPGAE,				--  receive
+		TxD => TXD_FPGAE,			--  tra
+		
+		rd	=> rd,
+		wr	=> wr
+		
+    );
+    
+    u_controller : Controller port map(
+		reset		=> reset,
+	
+		clk			=> clk,
+		
+		keyClk		=> ek,   -- from the keyScanner
+		keyIn		=> key, -- from the keyScanner
+		
+		errorShow	=> err,		-- err
+		
+		d_out		=> eo,			-- to vga
+		output		=> window,	-- to vga
+		
+		d_send		=>  es,			
+		outputSend	=>	send,
+		
+		d_rec		=>  er,
+		inputRec	=>	rec
+    );
+    
+--	vga_output(0).txt(0) <= CHAR_a;
+--	vga_output(0).txt(1) <= CHAR_b;
+--	vga_output(0).txt(2) <= CHAR_b;
+--	vga_output(0).txt(3) <= CHAR_g;
+--	vga_output(0).txt(4) <= CHAR_f;
+--	vga_output(0).txt(5) <= CHAR_c;
+--	vga_output(0).txt(6) <= CHAR_NULL;
+--	vga_output(1).txt(0) <= CHAR_c;
+--	vga_output(1).txt(1) <= CHAR_d;
+--	vga_output(1).txt(2) <= CHAR_NULL;
+--	vga_output(2).txt(0) <= CHAR_e;
+--	vga_output(2).txt(1) <= CHAR_f;
+--	vga_output(2).txt(2) <= CHAR_NULL;
+--	vga_output(3).txt(0) <= CHAR_a;
+--	vga_output(3).txt(1) <= CHAR_b;
+--	vga_output(3).txt(2) <= CHAR_NULL;
+--	vga_output(4).txt(0) <= CHAR_g;
+--	vga_output(4).txt(1) <= CHAR_a;
+--	vga_output(4).txt(2) <= CHAR_NULL;
+
+----------------------------------------------------------------
+--r1 <= rgb(2);
+--g1 <= rgb(1);
+--b1 <= rgb(0);
+	rst <= not reset;	-- need
+
+u1: vga640480 port map(
+						address  =>  address_tmp, 
+						reset    =>  reset, 
+						clk25    =>  clk25, 
+						clk_0    =>  clk_0, 
+						hs       =>  hs, 
+						vs       =>  vs,
+						r=>r,   g=>g,   b=>b,
+						rgb      =>  rgb,
+						input_clk => input_clk,
+						--pic      =>  pic_choose,
+						vga_output => vga_output,
+						disp_code => disp_code
+						--rgb_bg   =>  rgb_bg,
+						--bg_line  =>  bg_line
+					);
+u2: Keyboard port map(
+						datain=>data_in,
+						clkin=>clk_in,
+						fclk=>clk_0,
+						rst=>rst,
+						scancode=>scancode
+					);
+					
+u21: seg7 port map(scancode(3 downto 0),seg0);
+u22: seg7 port map(scancode(7 downto 4),seg1);
+u_seg7_3 : seg7 port map(dataT(7 downto 4), seg2);
+u_seg7_4 : seg7 port map(dataT(3 downto 0), seg3);
+u_seg7_5 : seg7 port map(dataR(7 downto 4), seg4);
+u_seg7_6 : seg7 port map(dataR(3 downto 0), seg5);
+u_seg7_7 : seg7 port map(key(7 downto 4), seg6);
+u_seg7_8 : seg7 port map(key(3 downto 0), seg07);
+--------------------------------------------------------------------
+--alpha
+u2_1: alpha_a port map(	
+						address=>address_tmp, 
+						clock=>clk25, 
+						q => rgb_a
+					);
+
+u2_2: alpha_b port map(	
+						address=>address_tmp, 
+						clock=>clk25, 
+						q => rgb_b
+					);
+u2_3: alpha_c port map(	
+						address=>address_tmp, 
+						clock=>clk25, 
+						q => rgb_c
+					);
+
+u2_4: alpha_d port map(	
+						address=>address_tmp, 
+						clock=>clk25, 
+						q => rgb_d
+					);
+u2_5: alpha_e port map(	
+						address=>address_tmp, 
+						clock=>clk25, 
+						q => rgb_e
+					);
+
+u2_6: alpha_f port map(	
+						address=>address_tmp, 
+						clock=>clk25, 
+						q => rgb_f
+					);
+u2_7: alpha_g port map(	
+						address=>address_tmp, 
+						clock=>clk25, 
+						q => rgb_g
+					);
+
+-- 这里要改!!!
+	process(scancode)
+	begin			
+		case scancode is
+			when "00011100" => 
+				
+				input_clk <= '1';
+				--if(pic_choose <= "000") then 
+					--rgb<=rgb_a;
+				--else
+					--rgb<=rgb_0;
+				--end if;
+				char_code <= "00000001";
+			when "00110010" =>
+				
+				input_clk <= '1';
+				--if(pic_choose <= "000") then 
+					--rgb<=rgb_b;
+				--else
+					--rgb<=rgb_0;
+				--end if;
+				char_code <= "00000010";
+			when "00100001" =>
+				input_clk <= '1';
+				--rgb <= rgb_c;
+				char_code <= "00000011";
+			when "00100011" =>
+				input_clk <= '1';
+				--rgb <= rgb_d;
+				char_code <= "00000100";
+			when "00100100" =>
+				input_clk <= '1';
+				--rgb <= rgb_e;
+				char_code <= "00000101";
+			when "00101011" =>
+				input_clk <= '1';
+				--rgb <= rgb_f;
+				char_code <= "00000110";
+			when "00110100" =>
+				input_clk <= '1';
+				--rgb <= rgb_g;
+				char_code <= "00000111";
+			when "11110000" =>
+				input_clk <= '0';
+			when others=>
+				input_clk <= '1';
+				--rgb <= "000";			--space
+				char_code <= "10000000";
+				--rgb<=rgb_0;
+				--pic_choose <= "001";
+		end case;
+	end process;
+---------------------------------------------------------------------
+	process (rgb_a, rgb_b, rgb_c, rgb_d, rgb_e, rgb_f, rgb_g, rgb_0, disp_code)
+	begin
+		case disp_code is
+			when "00000001" =>
+				rgb <= rgb_a;
+			when "00000010" =>
+				rgb <= rgb_b;
+			when "00000011" =>
+				rgb <= rgb_c;
+			when "00000100" =>
+				rgb <= rgb_d;
+			when "00000101" =>
+				rgb <= rgb_e;
+			when "00000110" =>
+				rgb <= rgb_f;
+			when "00000111" =>
+				rgb <= rgb_g;
+			when others    =>
+				rgb <= "000";
+		end case;
+	end process;
+---------------------------------------------------------------------
+--u3: bug port map(
+--					input => r1,
+--					output => r
+--				);
+--u4: bug port map(
+--					input => g1,
+--					output => g
+--				);
+--u5: bug port map(
+--					input => b1,
+--					output => b
+--				);
+    
+    end architecture;
+-------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------

@@ -1,0 +1,434 @@
+m255
+K3
+13
+cModel Technology
+Z0 dE:\modelsim\examples
+T_opt
+VRJmYQZVURh5SS3DcZZ59;2
+04 10 10 work controller structural 1
+=1-8ca9821efbe6-5392a32d-22b-2bfc
+Z1 o-quiet -auto_acc_if_foreign -work work
+n@_opt
+Z2 OE;O;10.1a;51
+Z3 dE:\modelsim\examples
+T_opt1
+V[K:8X;hIBc6QMHZ<8J<j73
+04 14 3 work serialtostring bhv 1
+=1-8ca9821efbe6-5392a74b-a-28c8
+R1
+n@_opt1
+R2
+R3
+T_opt2
+Vn94j5m25o3R>UEHHQU4KO1
+04 6 8 work serial behavior 1
+=1-8ca9821efbe6-5392a961-6e-3e64
+R1
+n@_opt2
+R2
+Ebug
+Z4 w1337130414
+Z5 DPx4 ieee 11 numeric_std 0 22 O3PF8EB`?j9=z7KT`fn941
+Z6 DPx4 ieee 15 std_logic_arith 0 22 4`Y?g_lkdn;7UL9IiJck01
+Z7 DPx4 ieee 18 std_logic_unsigned 0 22 RYmj;=TK`k=k>D@Cz`zoB3
+Z8 DPx3 std 6 textio 0 22 5>J:;AW>W0[[dW0I6EN1Q0
+Z9 DPx4 ieee 14 std_logic_1164 0 22 5=aWaoGZSMWIcH0i^f`XF1
+Z10 dF:\university\22\Chat\VHDs
+Z11 8F:/university/22/Chat/VHDs/bug.vhd
+Z12 FF:/university/22/Chat/VHDs/bug.vhd
+l0
+L6
+VT]<e5o:H?0<ad9j4WbkkU3
+Z13 OE;C;10.1a;51
+32
+Z14 !s108 1402120513.638000
+Z15 !s90 -reportprogress|300|-work|work|-2002|-explicit|-vopt|F:/university/22/Chat/VHDs/bug.vhd|
+Z16 !s107 F:/university/22/Chat/VHDs/bug.vhd|
+Z17 o-work work -2002 -explicit
+Z18 tExplicit 1
+!s100 5:9OVebBWek3Le9G;_EAN2
+!i10b 1
+Abehavior
+R5
+R6
+R7
+R8
+R9
+DEx4 work 3 bug 0 22 T]<e5o:H?0<ad9j4WbkkU3
+l15
+L14
+V@;Co[_RhdFoZL1@iN^VJ[1
+R13
+32
+R14
+R15
+R16
+R17
+R18
+!s100 iVocCi6N5i7Yz6E4k_SZa3
+!i10b 1
+Echat
+Z19 w1402118893
+R6
+R7
+Z20 DPx4 work 13 globaldefines 0 22 7=DWKSXVZhb^OFUeZWBUB3
+R8
+R9
+R10
+Z21 8F:/university/22/Chat/VHDs/chat.vhd
+Z22 FF:/university/22/Chat/VHDs/chat.vhd
+l0
+L8
+Vbfi81n31]Q2lX:JNmlX6Q3
+R13
+32
+Z23 !s108 1402120512.986000
+Z24 !s90 -reportprogress|300|-work|work|-2002|-explicit|-vopt|F:/university/22/Chat/VHDs/chat.vhd|
+Z25 !s107 F:/university/22/Chat/VHDs/chat.vhd|
+R17
+R18
+!s100 V^mnEf`;?LO]G<IeOiK=`2
+!i10b 1
+Astructural
+R6
+R7
+R20
+R8
+R9
+DEx4 work 4 chat 0 22 bfi81n31]Q2lX:JNmlX6Q3
+l303
+L61
+V50PFT@zefBHCalDQm_QND1
+R13
+32
+R23
+R24
+R25
+R17
+R18
+!s100 <F6eLm2=@Q9BgCaMDJ=RC1
+!i10b 1
+Econtroller
+Z26 w1402118935
+R20
+R6
+R7
+R8
+R9
+R10
+Z27 8F:/university/22/Chat/VHDs/Controller-Jun6-19.vhd
+Z28 FF:/university/22/Chat/VHDs/Controller-Jun6-19.vhd
+l0
+L8
+V@54;Ul@RH>[DN>g7NXa[g2
+R13
+32
+Z29 !s108 1402120513.843000
+Z30 !s90 -reportprogress|300|-work|work|-2002|-explicit|-vopt|F:/university/22/Chat/VHDs/Controller-Jun6-19.vhd|
+Z31 !s107 F:/university/22/Chat/VHDs/Controller-Jun6-19.vhd|
+R17
+R18
+!s100 49Ea[Zm<:R<G2hfVbXGGX0
+!i10b 1
+Astructural
+R20
+R6
+R7
+R8
+R9
+DEx4 work 10 controller 0 22 @54;Ul@RH>[DN>g7NXa[g2
+l68
+L34
+VE[I5L]YD?bZ7VOM_A@5Ei1
+R13
+32
+R29
+R30
+R31
+R17
+R18
+!s100 >[5GH_5OJC4ZbJna7Vn[?3
+!i10b 1
+Pglobaldefines
+R6
+R7
+R8
+R9
+Z32 w1401982450
+R10
+Z33 8F:/university/22/Chat/VHDs/GlobalDefines.vhd
+Z34 FF:/university/22/Chat/VHDs/GlobalDefines.vhd
+l0
+L8
+V7=DWKSXVZhb^OFUeZWBUB3
+R13
+32
+b1
+Z35 !s108 1402120512.314000
+Z36 !s90 -reportprogress|300|-work|work|-2002|-explicit|-vopt|F:/university/22/Chat/VHDs/GlobalDefines.vhd|
+Z37 !s107 F:/university/22/Chat/VHDs/GlobalDefines.vhd|
+R17
+R18
+!s100 IQR1RhjgAE7m6^H64E^n^2
+!i10b 1
+Bbody
+R20
+R6
+R7
+R8
+R9
+l0
+L73
+VNSTHHSF212?_lZdUMc;MM0
+R13
+32
+R35
+R36
+R37
+R17
+R18
+nbody
+!s100 <EIY9o5fbR1<BFJdTHVKn0
+!i10b 1
+Ekeyboard
+Z38 w1401978852
+R6
+R7
+R8
+R9
+R10
+Z39 8F:/university/22/Chat/VHDs/Keyboard.vhd
+Z40 FF:/university/22/Chat/VHDs/Keyboard.vhd
+l0
+L6
+VScjm_Cc1mV3]eZAKWWN=02
+R13
+32
+Z41 !s108 1402120515.163000
+Z42 !s90 -reportprogress|300|-work|work|-2002|-explicit|-vopt|F:/university/22/Chat/VHDs/Keyboard.vhd|
+Z43 !s107 F:/university/22/Chat/VHDs/Keyboard.vhd|
+R17
+R18
+!s100 BDSLO>[GgZY3`kOIM`H0F0
+!i10b 1
+Artl
+R6
+R7
+R8
+R9
+DEx4 work 8 keyboard 0 22 Scjm_Cc1mV3]eZAKWWN=02
+l24
+L16
+VJTMWR<oWQ0zoA3bnnkii=0
+R13
+32
+R41
+R42
+R43
+R17
+R18
+!s100 c:3JP0?KW21_1aEm9m[PX1
+!i10b 1
+Eseg7
+Z44 w1401092918
+R6
+R7
+R8
+R9
+R10
+Z45 8F:/university/22/Chat/VHDs/seg7.vhd
+Z46 FF:/university/22/Chat/VHDs/seg7.vhd
+l0
+L5
+V5@D7L`2gS^6ZZ<Ce<Xnhc1
+R13
+32
+Z47 !s108 1402120519.199000
+Z48 !s90 -reportprogress|300|-work|work|-2002|-explicit|-vopt|F:/university/22/Chat/VHDs/seg7.vhd|
+Z49 !s107 F:/university/22/Chat/VHDs/seg7.vhd|
+R17
+R18
+!s100 G[STOWDaXP7GcDeIS?zkb2
+!i10b 1
+Abehave
+R6
+R7
+R8
+R9
+DEx4 work 4 seg7 0 22 5@D7L`2gS^6ZZ<Ce<Xnhc1
+l14
+L12
+V;5@fgc8TbmWXkg`RTARQW3
+R13
+32
+R47
+R48
+R49
+R17
+R18
+!s100 F=1Gmgi_^9^L;;NA7QFfM1
+!i10b 1
+Eserial
+Z50 w1402120487
+R6
+R7
+R8
+R9
+R10
+Z51 8F:/university/22/Chat/VHDs/serial.vhd
+Z52 FF:/university/22/Chat/VHDs/serial.vhd
+l0
+L5
+VKD`2JWgQ[6YjECYP_ndj13
+R13
+32
+Z53 !s108 1402120519.880000
+Z54 !s90 -reportprogress|300|-work|work|-2002|-explicit|-vopt|F:/university/22/Chat/VHDs/serial.vhd|
+Z55 !s107 F:/university/22/Chat/VHDs/serial.vhd|
+R17
+R18
+!s100 5TDXZP[L:R7oHS=aKnhZ:3
+!i10b 1
+Abehavior
+R6
+R7
+R8
+R9
+DEx4 work 6 serial 0 22 KD`2JWgQ[6YjECYP_ndj13
+l60
+L23
+V:YS3f78jW]Vin4;29hYe31
+R13
+32
+R53
+R54
+R55
+R17
+R18
+!s100 KKag;Qk8Fz@aTQ_E0cOh?1
+!i10b 1
+Eserialtostring
+Z56 w1402119947
+R20
+R6
+R7
+R8
+R9
+R10
+Z57 8F:/university/22/Chat/VHDs/SerialToString.vhd
+Z58 FF:/university/22/Chat/VHDs/SerialToString.vhd
+l0
+L9
+V]fN:UWT_dNjo6VoEX3Sz[1
+R13
+32
+Z59 !s108 1402120520.531000
+Z60 !s90 -reportprogress|300|-work|work|-2002|-explicit|-vopt|F:/university/22/Chat/VHDs/SerialToString.vhd|
+Z61 !s107 F:/university/22/Chat/VHDs/SerialToString.vhd|
+R17
+R18
+!s100 aBg4Z6HB=P7ABeeHB9gIc3
+!i10b 1
+Abhv
+R20
+R6
+R7
+R8
+R9
+DEx4 work 14 serialtostring 0 22 ]fN:UWT_dNjo6VoEX3Sz[1
+l38
+L26
+V?1GJaA=DJN;PX_mgmDleR3
+R13
+32
+R59
+R60
+R61
+R17
+R18
+!s100 aMceSZ?d9bH;A:VkUL^ea2
+!i10b 1
+Evga640480
+Z62 w1402074084
+R20
+R5
+R6
+R7
+R8
+R9
+R10
+Z63 8F:/university/22/Chat/VHDs/VGA_640480.vhd
+Z64 FF:/university/22/Chat/VHDs/VGA_640480.vhd
+l0
+L9
+VR`f188:TMiKNh[XKmJeOB1
+R13
+32
+Z65 !s108 1402120521.196000
+Z66 !s90 -reportprogress|300|-work|work|-2002|-explicit|-vopt|F:/university/22/Chat/VHDs/VGA_640480.vhd|
+Z67 !s107 F:/university/22/Chat/VHDs/VGA_640480.vhd|
+R17
+R18
+!s100 b@7cHYfQXKKbgI6cP>Q]Y0
+!i10b 1
+Abehavior
+R20
+R5
+R6
+R7
+R8
+R9
+DEx4 work 9 vga640480 0 22 R`f188:TMiKNh[XKmJeOB1
+l70
+L27
+Vc4c4]dK:<n;T1hek6O?[10
+R13
+32
+R65
+R66
+R67
+R17
+R18
+!s100 RYh?NiOYf3`MGLVVlX2D23
+!i10b 1
+Evga_rom
+Z68 w1401803826
+R20
+R6
+R7
+R8
+R9
+R10
+Z69 8F:/university/22/Chat/VHDs/vga_rom.vhd
+Z70 FF:/university/22/Chat/VHDs/vga_rom.vhd
+l0
+L8
+VTAgczfk5__[M:GLPF0]m[1
+R13
+32
+Z71 !s108 1402120521.872000
+Z72 !s90 -reportprogress|300|-work|work|-2002|-explicit|-vopt|F:/university/22/Chat/VHDs/vga_rom.vhd|
+Z73 !s107 F:/university/22/Chat/VHDs/vga_rom.vhd|
+R17
+R18
+!s100 OY;FmDSORVnG^NYi>;8MA0
+!i10b 1
+Avga_rom
+R20
+R6
+R7
+R8
+R9
+DEx4 work 7 vga_rom 0 22 TAgczfk5__[M:GLPF0]m[1
+l334
+L18
+V1L6nKk7eSR5hgzBVZZh<10
+R13
+32
+R71
+R72
+R73
+R17
+R18
+!s100 `iC2j[AR8Xe=9ic2=]k`O1
+!i10b 1
